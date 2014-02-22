@@ -10,12 +10,15 @@ class Logger
   constructor: (@name = "noName", @level = "info", @options = {})->
     # The default output is the console.
     @outputs = @options.outputs or ['console']
+    #Usefull to save the current state outputs.
+    @is = {}
+    # Messages stack.
+    @messages:[]
+    # Notify that the logger has started.
     @log('info', "The logger has started.")
-  #Usefull to save the current state outputs.
-  @is = {}
+  #Save into the prootype the levels.
   @levels = new Levels()
-  # Messages stack.
-  @messages:[]
+  # Log a message with its associated level.
   @log:(level, message)->
     # Log the message if the level exists and the level value superior or equal to the "authorized" level value.
     if @levels[level]? and @levels[level].value >= @levels[@level].value
