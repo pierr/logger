@@ -1,0 +1,26 @@
+{
+  "name": "logger",
+  "version": "0.0.1",
+  "description": "Logger for JavaScript applications.",
+  "main": "logger.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pierr/logger.git"
+  },
+  "keywords": [
+    "log",
+    "logger",
+    "JavaScript",
+    "node"
+  ],
+  "author": "Pierre Besson",
+  "license": "MIT",
+  "gitHead": "7da5f65daf776f907023b388930655d038a95811",
+  "readmeFilename": "README.md"
+}
