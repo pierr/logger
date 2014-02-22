@@ -22,5 +22,11 @@
   "author": "Pierre Besson",
   "license": "MIT",
   "gitHead": "7da5f65daf776f907023b388930655d038a95811",
-  "readmeFilename": "README.md"
+  "readmeFilename": "README.md",
+  "devDependencies": {
+    "sinon-chai": "~2.5.0",
+    "chai": "~1.9.0",
+    "sinon": "~1.8.2",
+    "mocha": "~1.17.1"
+  }
 }
