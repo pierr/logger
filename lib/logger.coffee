@@ -26,6 +26,7 @@ class Logger
       console.log(message.toString()) if @is.console
       @messages.push message
   @parseOutputs:()->
+    @is = @is or {}
     for out in @outputs
       switch out
         when 'console' then @is.Console = true
