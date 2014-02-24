@@ -2,7 +2,7 @@
   "name": "logger",
   "version": "0.0.1",
   "description": "Logger for JavaScript applications.",
-  "main": "logger.js",
+  "main": "main/amd/logger.js",
   "directories": {
     "test": "test"
   },
