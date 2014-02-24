@@ -6,7 +6,15 @@ class Levels
   info : {name: "Info", value:3}
   debug: {name: "Debug", value:4}
   trace: {name: "Trace", value:5}
-
+  toJSON:()->
+    json = 
+      fatal: {name: "Fatal", value:0}
+      error: {name: "Error", value:1}
+      warn : {name: "Warn", value:2}
+      info : {name: "Info", value:3}
+      debug: {name: "Debug", value:4}
+      trace: {name: "Trace", value:5}
+    return json
 if typeof module is 'undefined' and typeof window isnt 'undefined'
   window.Levels  = Levels
 else

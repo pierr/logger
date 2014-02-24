@@ -2,7 +2,7 @@ if typeof module is 'undefined' and typeof window isnt 'undefined'
   Levels  = window.Levels
   Message = window.Message
 else
-  Levels = require('./Levels')
+  Levels = require('./levels')
   Message = require('./message')
 
 # Logger class
@@ -13,35 +13,48 @@ class Logger
     #Usefull to save the current state outputs.
     @is = {}
     # Messages stack.
-    @messages:[]
+    @messages = []
+    #Save into the prootype the levels.
+    @levels = new Levels()
+    # Parse all the outputs available
+    @parseOutputs()
     # Notify that the logger has started.
     @log('info', "The logger has started.")
-  #Save into the prootype the levels.
-  @levels = new Levels()
+    
   # Log a message with its associated level.
-  @log:(level, message)->
+  log:(level, message)->
     # Log the message if the level exists and the level value superior or equal to the "authorized" level value.
     if @levels[level]? and @levels[level].value >= @levels[@level].value
       message = new Message(level, message)
-      console.log(message.toString()) if @is.console
+      console[level](message.toString()) if @is.console
       @messages.push message
-  @parseOutputs:()->
+  trace:(message)->
+    @log('trace', message)
+  warn:(message)->
+    @log('warn', message)
+  info:(message)->
+    @log('info', message)
+  debug:(message)->
+    @log('debug', message)
+  error:(message)->
+    @log('error', message)
+  parseOutputs:()->
     @is = @is or {}
     for out in @outputs
       switch out
-        when 'console' then @is.Console = true
+        when 'console' then @is.console = true
         when 'localStorage' then @is.localStorage = true
         when 'file' then @is.file = true
         when 'server' then @is.server = true
-  @clear:()->
+  clear:()->
     @messages.length = 0
   # Print all the messages on the different output
-  @display:()->
+  display:()->
     throw new Error("Not Yet Implemented")
 
 
   #Save all the messages in the stack into the server if defined or with the file api if defined.
-  @save:()->
+  save:()->
     throw new Error("Not Yet Implemented")
 
 
