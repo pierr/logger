@@ -2,20 +2,19 @@
 if typeof module is 'undefined' and typeof window isnt 'undefined'
   Levels  = window.Levels
 else
-  Levels = require('./Levels')
-
+  Levels = require('./levels')
 
 # Message class
 class Message
   # Constructor of the messgae class.
   constructor:(@level, @message)->
     @date = new Date()
-  @levels = new Levels()
+    @levels = new Levels()
   # Stringify the message.
-  @toString:()->
-    return "#{@levels[@level]} : #{@message} at: #{@date}"
+  toString:()->
+    return "#{@levels[@level].name} : #{@message} at: #{@date}"
   # Convert the message into a json object
-  @toJSON:()->
+  toJSON:()->
     return {"level": @level, "message" : @message, label: @toString(), "date": @date}
 
 if typeof module is 'undefined' and typeof window isnt 'undefined'
