@@ -15,7 +15,7 @@ class Message
     return "#{@levels[@level].name} : #{@message} at: #{@date}"
   # Convert the message into a json object
   toJSON:()->
-    return {"level": @level, "message" : @message, label: @toString(), "date": @date}
+    return {"level": @level, "message" : @message, "label": @toString(), "date": @date}
 
 if typeof module is 'undefined' and typeof window isnt 'undefined'
   window.Message  = Message
