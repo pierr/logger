@@ -8,6 +8,7 @@ class Levels
   trace: {name: "Trace", value:5}
 
 if typeof module is 'undefined' and typeof window isnt 'undefined'
+  console.log Levels
   window.Levels  = Levels
 else
   module.exports = Levels
