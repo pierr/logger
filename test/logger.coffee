@@ -26,4 +26,13 @@ describe '#Logger ', ()->
     logger.messages.should.have.length.of(1)
     logger.clear() 
     logger.messages.should.have.length.of(0)
-    
+  it "## save should be called every 10 add", ()->
+    logger = new Logger("test", "fatal", {outputs: []})
+    logger.clear()
+    logger.warn("Message #{i}") for i in [0..10]
+    logger.messages.should.have.length.of(1)
+  it "## display should return all the messges", ()->
+    logger = new Logger("test", "fatal", {outputs: []})
+    logger.clear()
+    logger.warn("Message #{i}") for i in [0..9]
+    logger.display().should.be.an('Array').with.length.of(10)
