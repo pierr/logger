@@ -1,0 +1,25 @@
+{
+  "name": "loggerz",
+  "version": "0.0.1",
+  "homepage": "https://github.com/pierr/loggerz",
+  "authors": [
+    "Pierre <pierre.besson7@gmail.com>"
+  ],
+  "description": "A simple logger for both browser and node js.",
+  "main": "main/browser/logger.js",
+  "keywords": [
+    "node",
+    "logger",
+    "JavaScript",
+    "console",
+    "localStorage"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
