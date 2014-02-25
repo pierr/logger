@@ -1,5 +1,5 @@
 {
-  "name": "logger",
+  "name": "loggerz",
   "version": "0.0.1",
   "description": "Logger for JavaScript applications.",
   "main": "main/amd/logger.js",
