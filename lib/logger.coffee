@@ -1,12 +1,8 @@
-if typeof module is 'undefined' and typeof window isnt 'undefined'
-  Levels  = window.Levels
-  Message = window.Message
-else
-  Levels = require('./levels')
-  Message = require('./message')
+levels = require('./levels')
+Message = require('./message')
 
 # Logger class
-class Logger
+module.exports = class Logger
   constructor: (@name = "noName", @level = "info", @options = {})->
     # The default output is the console.
     @outputs = @options.outputs or ['console']
@@ -14,36 +10,34 @@ class Logger
     @is = {}
     # Messages stack.
     @messages = []
-    #Save into the prootype the levels.
-    @levels = new Levels()
     # Parse all the outputs available
     @parseOutputs()
     # Notify that the logger has started.
     @log('info', "The logger has started.")
     
   # Log a message with its associated level.
-  log:(level, message)->
+  log:(level, message, context)->
     # Log the message if the level exists and the level value superior or equal to the "authorized" level value.
-    if @levels[level]? and @levels[level].value >= @levels[@level].value
+    if levels[level]? and levels[level].value >= levels[@level].value
       @save() if @messages.length > (@options.max || 9)
-      message = new Message(level, message)
-      console[level](message.toString()) if @is.console
+      message = new Message(level, message, context)
+      console[level](message.toString(), context) if @is.console
       @messages.push message
   # Trace a message
-  trace:(message)->
-    @log('trace', message)
+  trace:(message, context)->
+    @log('trace', message, context)
   # Warn a message
-  warn:(message)->
-    @log('warn', message)
+  warn:(message, context)->
+    @log('warn', message, context)
   # Info a message
-  info:(message)->
-    @log('info', message)
+  info:(message, context)->
+    @log('info', message, context)
   # debug a message
-  debug:(message)->
-    @log('debug', message)
+  debug:(message, context)->
+    @log('debug', message, context)
   #error a message
-  error:(message)->
-    @log('error', message)
+  error:(message, context)->
+    @log('error', message, context)
   # Parse all outputs which are availables.
   parseOutputs:()->
     @is = @is or {}
@@ -64,8 +58,3 @@ class Logger
   save:()->
     localStorage.setItem(@name, JSON.stringify(@messages)) if @is.localStorage
     @clear()
-
-if typeof module is 'undefined' and typeof window isnt 'undefined'
-  window.Logger  = Logger
-else
-  module.exports = Logger

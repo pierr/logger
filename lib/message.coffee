@@ -1,23 +1,12 @@
-#Load dependencies depending on the fact that we are in a commojs module or not.
-if typeof module is 'undefined' and typeof window isnt 'undefined'
-  Levels  = window.Levels
-else
-  Levels = require('./levels')
-
+levels = require './levels'
 # Message class
-class Message
+module.exports = class Message
   # Constructor of the messgae class.
-  constructor:(@level, @message)->
+  constructor:(@level, @message, @context)->
     @date = new Date()
-    @levels = new Levels()
   # Stringify the message.
   toString:()->
-    return "#{@levels[@level].name} : #{@message} at: #{@date}"
+    return "#{levels[@level].name} : #{@message} at: #{@date}"
   # Convert the message into a json object
   toJSON:()->
-    return {"level": @level, "message" : @message, "label": @toString(), "date": @date}
-
-if typeof module is 'undefined' and typeof window isnt 'undefined'
-  window.Message  = Message
-else
-  module.exports = Message
+    return {"level": @level, "message" : @message, "label": @toString(), "date": @date , "context": @context}
