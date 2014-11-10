@@ -1,8 +1,12 @@
 should = require('chai').should()
-Levels = require('../lib/levels')
+levels = require('../lib/levels')
+    
 describe '#The levels should exists', ()->
   it 'Should not be null', ()->
-    levels = new Levels()
+    levels.should.not.be.undefined
+  it 'Should be an object', ()->  
+    levels.should.be.an.object
+  it 'Should have different level existing', ()->
     levels.should.have.property('fatal').that.deep.equals({name: "Fatal", value:0})
     levels.should.have.property('error').that.deep.equals({name: "Error", value:1})
     levels.should.have.property('warn').that.deep.equals({name: "Warn", value:2})
