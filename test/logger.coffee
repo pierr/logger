@@ -16,11 +16,10 @@ describe '#Logger ', ()->
     logger.messages.should.have.length.of(4)
     logger.debug("papa");
     logger.messages.should.have.length.of(5)
-  it.only "## parseOutputs", ()->
+  it "## parseOutputs", ()->
     logger = new Logger("test", "fatal", {outputs: []})
     logger.output.should.be.an('object')
     logger = new Logger("test", "fatal", {outputs: ['console']})
-    console.log( logger.output)
     logger.output.should.be.an('object')
     logger.output.should.have.property('console')
   it "##clear", ()->
@@ -31,8 +30,8 @@ describe '#Logger ', ()->
   it "## save should be called every 10 add", ()->
     logger = new Logger("test", "fatal", {outputs: []})
     logger.clear()
-    logger.warn("Message #{i}") for i in [0..10]
-    logger.messages.should.have.length.of(1)
+    logger.warn("Message #{i}") for i in [1..10]
+    logger.messages.should.have.length.of(10)
   it "## display should return all the messges", ()->
     logger = new Logger("test", "fatal", {outputs: []})
     logger.clear()

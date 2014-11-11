@@ -55,11 +55,12 @@ module.exports = class Logger
   # Clear all the messages in the current stack.
   clear: ->
     @messages.length = 0
-    executeForOutputs "clear"
+    @executeForOutputs "clear"
   # Print all the messages on the different output
   display: ->
     message.toString() for message in @messages
-    executeForOutputs "display"
+    @executeForOutputs "display"
+    return @messages
   #Save all the messages in the stack into the server if defined or with the file api if defined.
   save: ->
     executeForOutputs "clear"
