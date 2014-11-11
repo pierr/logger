@@ -5,13 +5,13 @@ Message = require('./message')
 module.exports = class Logger
   constructor: (@name = "noName", @level = "info", @options = {})->
     # The default output is the console.
-    @outputs = @options.outputs or ['console']
+    @options.outputs  =  @options.outputs or ['console']
     #Usefull to save the current state outputs.
     @is = {}
     # Messages stack.
     @messages = []
     # Parse all the outputs available
-    @parseOutputs()
+    @initializeOutputs()
     # Notify that the logger has started.
     @log('info', "The logger has started.")
     
@@ -19,10 +19,10 @@ module.exports = class Logger
   log:(level, message, context)->
     # Log the message if the level exists and the level value superior or equal to the "authorized" level value.
     if levels[level]? and levels[level].value >= levels[@level].value
-      @save() if @messages.length > (@options.max || 9)
+      #@save() if @messages.length > (@options.max || 9)
       message = new Message(level, message, context)
-      console[level](message.toString(), context) if @is.console
       @messages.push message
+      @executeForOutputs "log", message
   # Trace a message
   trace:(message, context)->
     @log('trace', message, context)
@@ -38,23 +38,28 @@ module.exports = class Logger
   #error a message
   error:(message, context)->
     @log('error', message, context)
+  ###
+   @description Execute an action foreach output
+   @param actionName -  Name of the action to execute.
+  ###
+  executeForOutputs:(actionName, argument)->
+    return if typeof actionName isnt "string"
+    for output in @options.outputs
+      output[actionName].call(@, argument) if output[actionName]?
   # Parse all outputs which are availables.
-  parseOutputs:()->
-    @is = @is or {}
-    for out in @outputs
-      switch out
-        when 'console' then @is.console = true
-        when 'localStorage' then @is.localStorage = ( window? and window.localStorage?)
-        when 'file' then @is.file = true
-        when 'server' then @is.server = true
+  initializeOutputs:()->
+    @output = @output or {}
+    for outputName in @options.outputs
+      Appender = require("./appender/#{outputName}")
+      @output[outputName] = new Appender(@options)
   # Clear all the messages in the current stack.
-  clear:()->
+  clear: ->
     @messages.length = 0
+    executeForOutputs "clear"
   # Print all the messages on the different output
-  display:()->
+  display: ->
     message.toString() for message in @messages
-
+    executeForOutputs "display"
   #Save all the messages in the stack into the server if defined or with the file api if defined.
-  save:()->
-    localStorage.setItem(@name, JSON.stringify(@messages)) if @is.localStorage
-    @clear()
+  save: ->
+    executeForOutputs "clear"

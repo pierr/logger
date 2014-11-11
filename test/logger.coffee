@@ -16,11 +16,13 @@ describe '#Logger ', ()->
     logger.messages.should.have.length.of(4)
     logger.debug("papa");
     logger.messages.should.have.length.of(5)
-  it "## parseOutputs", ()->
+  it.only "## parseOutputs", ()->
     logger = new Logger("test", "fatal", {outputs: []})
-    logger.outputs.should.be.an('Array').with.length.of(0)
-    logger = new Logger("test", "fatal", {outputs: ['server']})
-    logger.outputs.should.be.an('Array').with.length.of(1)
+    logger.output.should.be.an('object')
+    logger = new Logger("test", "fatal", {outputs: ['console']})
+    console.log( logger.output)
+    logger.output.should.be.an('object')
+    logger.output.should.have.property('console')
   it "##clear", ()->
     logger = new Logger("test", "fatal", {outputs: []})
     logger.messages.should.have.length.of(1)
