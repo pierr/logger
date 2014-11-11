@@ -23,11 +23,22 @@
   "license": "MIT",
   "gitHead": "7da5f65daf776f907023b388930655d038a95811",
   "readmeFilename": "README.md",
+  "browserify": {
+    "transform": ["coffeeify"]
+  },
   "devDependencies": {
     "sinon-chai": "~2.5.0",
     "chai": "~1.9.0",
     "sinon": "~1.8.2",
     "mocha": "~1.17.1",
     "coffee-script": "^1.8.0"
+  },
+  "dependencies": {
+    "browser-sync": "^1.6.5",
+    "browserify": "^6.3.2",
+    "coffeeify": "^0.7.0",
+    "gulp": "^3.8.10",
+    "gulp-concat": "^2.4.1",
+    "vinyl-source-stream": "^1.0.0"
   }
 }
