@@ -16,7 +16,7 @@ gulp.task('templates', function() {
 gulp.task('browserify' ,function() {
   var browserify = require('browserify');
   var source = require('vinyl-source-stream');
-  return browserify('./lib/index.coffee')
+  return browserify(({entries: ['./lib/index.coffee'], extensions: ['.coffee']}))
     .bundle()
     //Pass desired output filename to vinyl-source-stream
     .pipe(source('loggerz.js'))
