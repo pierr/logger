@@ -1,5 +1,15 @@
-levels = require('./levels')
-Message = require('./message')
+levels               = require('./levels')
+Message              = require('./message')
+Appender = {
+  console   : require "./appender/console"
+  interface : require "./appender/interface"
+  localStorage: require "./appender/localStorage"
+  server : require "./appender/server"
+}
+interfaceAppender    = require "./appender/interface"
+localStorageAppender = require "./appender/localStorage"
+serverAppender       = require "./appender/server"
+
 
 # Logger class
 module.exports = class Logger
@@ -45,14 +55,13 @@ module.exports = class Logger
   ###
   executeForOutputs:(actionName, argument)->
     return if typeof actionName isnt "string"
-    for output in @options.outputs
-      output[actionName].call(@, argument) if output[actionName]?
+    for output of @outputs
+      @outputs[output][actionName].call(@, argument) if @outputs[output][actionName]?
   # Parse all outputs which are availables.
   initializeOutputs:()->
-    @output = @output or {}
+    @outputs = @outputs or {}
     for outputName in @options.outputs
-      Appender = require("./appender/#{outputName}")
-      @output[outputName] = new Appender(@options)
+      @outputs[outputName] = new Appender[outputName](@options)
   # Clear all the messages in the current stack.
   clear: ->
     @messages.length = 0
