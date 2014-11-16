@@ -8,12 +8,12 @@ module.exports = class ConsoleAppender extends InterfaceApender
   ###
   log: (message) ->
     console.log('log called')
-    super()
+    super(message)
     @clear if @checkClear()
     @messages.push(message)
     console[message.level](message.toString(), message.context)
   checkClear: ->
-    return if messages.length > @config.maxLength
+    return if @messages.length > @config.maxLength
   ###
     Clear all the messages.
   ###

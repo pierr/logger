@@ -1,3 +1,4 @@
+Message = require '../message'
 ###
  Interface for the Appender with all the methods to implement in order ot be an Interface.
 ###
@@ -10,7 +11,7 @@ module.exports = class AppenderInterface
     @param context - object - Object containing the context to log.
   ###
   log: (message) ->
-    if(typeof message isnt "Message")
+    if(!message instanceof Message)
       throw new Error("The message should be a Message object")
   checkClear: ->
     return if messages.length > @config.maxLength

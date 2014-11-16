@@ -56,7 +56,7 @@ module.exports = class Logger
   executeForOutputs:(actionName, argument)->
     return if typeof actionName isnt "string"
     for output of @outputs
-      @outputs[output][actionName].call(@, argument) if @outputs[output][actionName]?
+      @outputs[output][actionName](argument) if @outputs[output][actionName]?
   # Parse all outputs which are availables.
   initializeOutputs:()->
     @outputs = @outputs or {}

@@ -18,10 +18,10 @@ describe '#Logger ', ()->
     logger.messages.should.have.length.of(5)
   it "## parseOutputs", ()->
     logger = new Logger("test", "fatal", {outputs: []})
-    logger.output.should.be.an('object')
+    logger.outputs.should.be.an('object')
     logger = new Logger("test", "fatal", {outputs: ['console']})
-    logger.output.should.be.an('object')
-    logger.output.should.have.property('console')
+    logger.outputs.should.be.an('object')
+    logger.outputs.should.have.property('console')
   it "##clear", ()->
     logger = new Logger("test", "fatal", {outputs: []})
     logger.messages.should.have.length.of(1)
