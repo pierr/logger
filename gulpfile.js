@@ -49,7 +49,7 @@ gulp.task('serve', ['browserify'], function () {
     }
   });
 
-  gulp.watch(['lib/**/*.js'],['browserify',reload]);
+  gulp.watch(['lib/**/*.coffee'],['browserify',reload]);
   //gulp.watch(['lib/templates/*.jade'], ['templates', reload]);
   //gulp.watch(['lib/styles/*.{styl,css}'], ['style', reload]);
   //gulp.watch(['lib/*.json'], ['browserify',reload]);
