@@ -40,6 +40,7 @@ module.exports = class LocalStorageAppender extends InterfaceApender
     #console.log('log called')
     super(message)
     @_addItem(message)
+    @_displayMessageInEl(message.toJSON())
   ###
     Clear all the messages.
   ###
@@ -47,14 +48,20 @@ module.exports = class LocalStorageAppender extends InterfaceApender
     for idx in @_getIndex()
       localStorage.removeItem("#{STORAGE_KEY}#{idx}")
     localStorage.removeItem(INDEX_KEY)
+    @el.innerHTML = null
+  _displayMessage:(message) ->
+    return "<li class='message'>#{message.label}</li>"
+  _displayMessageInEl:(message) ->
+    @el.innerHTML += @_displayMessage(message)
   _displayHTML:(messages)->
     buffer = ""
-    (buffer = buffer + "<li class='message'>#{msg.label}</li>") for msg in messages
+    (buffer = buffer + @_displayMessage(msg)) for msg in messages
     return buffer
   ###
     Display all the messages into the appender.
   ###
   display: (domElement)->
+    domElement or (domElement = @el)
     console.log("------------localStorage-------------")
     msgs = @_getAllItems()
     if msgs? and msgs.length > 0

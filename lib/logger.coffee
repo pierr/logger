@@ -9,6 +9,7 @@ Appender = {
   localStorage: require "./appender/localStorage"
   server : require "./appender/server"
 }
+document = require "./util/document"
 
 # Logger class
 module.exports = class Logger
@@ -20,12 +21,14 @@ module.exports = class Logger
     # Messages stack.
     @messages = []
     # Parse all the outputs available
+    @el = options.el || document.createElement(@options.tagName or 'ul')
+    @options.el = @el
     @initializeOutputs()
-    @el = document.createElement('ul' or @options.tagName)
     # Notify that the logger has started.
-    @log('info', "The logger has started.")
     @display()
-    document.body.appendChild(@el) if document? and document.body?
+    @log('info', "The logger has started.")
+    if document?
+      document.body.appendChild(@el) if document? and document.body?
   # Log a message with its associated level.
   log:(level, message, context)->
     # Log the message if the level exists and the level value superior or equal to the "authorized" level value.

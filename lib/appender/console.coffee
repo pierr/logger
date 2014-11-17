@@ -29,5 +29,5 @@ module.exports = class ConsoleAppender extends InterfaceApender
   ###
   display:->
     console.log("----------Console------------")
-    console.table(@messages)
+    console.table(@messages) if console.table?
     console.log("-----------------------------")

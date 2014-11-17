@@ -3,3 +3,4 @@
 ###
 do ()->
   @.Loggerz  = require './logger'
+  global.document = window.document

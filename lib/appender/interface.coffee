@@ -1,14 +1,16 @@
 Message = require '../message'
+document = require "../util/document"
+
 ###
  Interface for the Appender with all the methods to implement in order ot be an Interface.
 ###
 module.exports = class AppenderInterface
   constructor:(@config = {})->
+    @el = @config.el or document.createElement('div')
     @messages = []
   ###
-    @param level   - string - Level of the message to log (shoul be in levels.coffee)
-    @param message - string - String message associated with the log.
-    @param context - object - Object containing the context to log.
+    @param {Message} - message - Message object message associated with the log.
+   
   ###
   log: (message) ->
     if(!message instanceof Message)
