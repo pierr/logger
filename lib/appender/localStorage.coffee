@@ -47,12 +47,19 @@ module.exports = class LocalStorageAppender extends InterfaceApender
     for idx in @_getIndex()
       localStorage.removeItem("#{STORAGE_KEY}#{idx}")
     localStorage.removeItem(INDEX_KEY)
+  _displayHTML:(messages)->
+    buffer = ""
+    (buffer = buffer + "<li class='message'>#{msg.label}</li>") for msg in messages
+    return buffer
   ###
     Display all the messages into the appender.
   ###
-  display:->
+  display: (domElement)->
+    console.log("------------localStorage-------------")
     msgs = @_getAllItems()
     if msgs? and msgs.length > 0
       console.table(msgs)
     else 
       console.log("No messages are registered.")
+    console.log("-------------------------------------")
+    domElement.innerHTML = @_displayHTML(msgs)

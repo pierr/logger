@@ -28,4 +28,6 @@ module.exports = class ConsoleAppender extends InterfaceApender
     Save the messages into the appender.
   ###
   display:->
+    console.log("----------Console------------")
     console.table(@messages)
+    console.log("-----------------------------")

@@ -21,9 +21,11 @@ module.exports = class Logger
     @messages = []
     # Parse all the outputs available
     @initializeOutputs()
+    @el = document.createElement('ul' or @options.tagName)
     # Notify that the logger has started.
     @log('info', "The logger has started.")
-    
+    @display()
+    document.body.appendChild(@el) if document? and document.body?
   # Log a message with its associated level.
   log:(level, message, context)->
     # Log the message if the level exists and the level value superior or equal to the "authorized" level value.
@@ -68,7 +70,7 @@ module.exports = class Logger
   # Print all the messages on the different output
   display: ->
     message.toString() for message in @messages
-    @executeForOutputs "display"
+    @executeForOutputs "display", @el
     return @messages
   #Save all the messages in the stack into the server if defined or with the file api if defined.
   save: ->
