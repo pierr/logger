@@ -1,3 +1,6 @@
+###
+  Dependencies.
+###
 levels               = require('./levels')
 Message              = require('./message')
 Appender = {
@@ -6,10 +9,6 @@ Appender = {
   localStorage: require "./appender/localStorage"
   server : require "./appender/server"
 }
-interfaceAppender    = require "./appender/interface"
-localStorageAppender = require "./appender/localStorage"
-serverAppender       = require "./appender/server"
-
 
 # Logger class
 module.exports = class Logger
@@ -29,7 +28,7 @@ module.exports = class Logger
   log:(level, message, context)->
     # Log the message if the level exists and the level value superior or equal to the "authorized" level value.
     if levels[level]? and levels[level].value >= levels[@level].value
-      console.log("logger log called level : #{level} level of level #{JSON.stringify(levels[level])} currentLevel: #{JSON.stringify(levels[@level])}")
+      #console.log("logger log called level : #{level} level of level #{JSON.stringify(levels[level])} currentLevel: #{JSON.stringify(levels[@level])}")
       #@save() if @messages.length > (@options.max || 9)
       message = new Message(level, message, context)
       @messages.push message

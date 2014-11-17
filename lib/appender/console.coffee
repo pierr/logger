@@ -7,7 +7,7 @@ module.exports = class ConsoleAppender extends InterfaceApender
     Log the message given as argument.
   ###
   log: (message) ->
-    console.log('log called')
+    #console.log('log called')
     super(message)
     @clear if @checkClear()
     @messages.push(message)
@@ -28,4 +28,4 @@ module.exports = class ConsoleAppender extends InterfaceApender
     Save the messages into the appender.
   ###
   display:->
-    throw new Error("The save interface is not implemented.")
+    console.table(@messages)
